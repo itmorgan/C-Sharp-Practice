@@ -1,0 +1,145 @@
+﻿using System;
+using System.Numerics;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("1. Find the multiple of 7 nearest to N");
+        Console.WriteLine("2. Compute the sum of space-separated integers");
+        Console.WriteLine("3. Convert uppercase letters to lowercase");
+        Console.WriteLine("Press 0 to Quit");
+        start:
+        Console.WriteLine("Enter a command:");
+
+        int command = int.Parse(Console.ReadLine()!);
+
+        switch (command)
+        {
+            case 1:
+                FindNearestMultipleOf7();
+                goto start;
+            case 2:
+                ComputeSumOfIntegers();
+                goto start;
+            case 3:
+                ConvertToUpperToLower();
+                goto start;
+            case 0:
+                Console.WriteLine("Goodbye!");
+                break;
+            default:
+                Console.WriteLine("Invalid command");
+                goto start;
+        }
+
+    }
+
+    static void FindNearestMultipleOf7()
+    {
+        Rep:
+        Console.WriteLine("Enter a number:");
+        try
+        {
+            decimal N = decimal.Parse(Console.ReadLine()!);
+            decimal remain = N % 7;
+            decimal result;
+            if (remain <= 3)
+            {
+                result = N - remain;
+            }
+            else
+            {
+                result = N + (7 - remain);
+            }
+
+            int output = Convert.ToInt32(result);
+            Console.WriteLine("The nearest multiple of 7 is:");
+            Console.WriteLine($"{output}");
+        }
+        catch {
+            Console.WriteLine("This is not a number");
+            goto Rep;
+        }
+
+    }
+
+
+    static void ComputeSumOfIntegers()
+    {
+        begin:
+        Console.Write("Enter a space-separated list of integers: ");
+        string input = Console.ReadLine()!;
+        string[] parts = input.Split(' ');
+
+        int sum = 0;
+
+        foreach (string part in parts)
+        {
+            if (int.TryParse(part, out int number))
+            {
+                sum += number;
+            }
+            else
+            {
+                Console.WriteLine("Please only input integers");
+                goto begin;
+            }
+        }
+
+        Console.WriteLine($"The sum is {sum}");
+    }
+
+    static void ConvertToUpperToLower()
+    {
+        again:
+        Console.WriteLine("Enter a word:");
+        string input = Console.ReadLine()!;
+        char[] characters = new char[input.Length];
+        int i=0;
+        foreach (char c in input)
+        {
+            if (char.IsLetter(c))
+            {
+                if (c >= 'A' && c <= 'Z')
+                {
+                    characters[i] = Char.ToLower(c);
+                }
+                else
+                {
+                    characters[i] = c;
+                }
+                i++;
+            }
+            else
+            {
+                Console.WriteLine("This is not a word.");
+                goto again;
+            }
+        }
+        string output = string.Join("", characters);
+        Console.WriteLine($"{output}");
+    }
+
+}
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
