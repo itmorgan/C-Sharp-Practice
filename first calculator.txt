@@ -1,0 +1,45 @@
+﻿Console.WriteLine("<value> <operator> <value>");
+Start:
+decimal output;
+string input = Console.ReadLine()!;
+string[] parts = input.Split('+', '-', '*', '/');
+//positive no only
+/*string in1 = input.Substring(0,1);
+string in2 = input.Substring(2);*/
+//string[] parts = input.Split(' ');
+decimal.TryParse(parts[0], out decimal num1);
+decimal.TryParse(parts[1], out decimal num2);
+char operate = input[parts[0].Length];
+
+switch (operate)
+{
+	case '+':
+		output = num1 + num2;
+		break;
+
+	case '-':
+		output = num1 - num2;
+		break;
+
+	case '*':
+		output = num1 * num2;
+		break;
+
+	case '/':
+		try
+		{
+            output = num1 / num2;
+        }
+		catch 
+		{
+			Console.WriteLine("Don't divide by zero!");
+			goto Start;
+		}
+		break;
+
+	default: throw new ArgumentException();
+}
+
+Console.WriteLine(output);
+goto Start;
+
